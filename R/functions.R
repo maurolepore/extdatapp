@@ -47,10 +47,10 @@ installed_file <- function(package, regexp, ...) {
 read_data <- function(path) {
   extension <- fs::path_ext(path)
   data <- switch(extension,
-      "csv" = readr::read_csv(path),
-      "tsv" = readr::read_tsv(path),
-      "rds" = readr::read_rds(path),
-      stop("Can't read files with extension: ", extension, call. = FALSE)
+    "csv" = readr::read_csv(path),
+    "tsv" = readr::read_tsv(path),
+    "rds" = readr::read_rds(path),
+    stop("Can't read files with extension: ", extension, call. = FALSE)
   )
 
   data
@@ -94,10 +94,10 @@ format_label <- function(x) {
   paste0(x, " (", ext, ")")
 }
 
-`%||%` <- function (x, y) {
-    if (is.null(x)) {
-      y
-    } else {
-      x
-    }
+`%||%` <- function(x, y) {
+  if (is.null(x)) {
+    y
+  } else {
+    x
+  }
 }
