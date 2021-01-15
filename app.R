@@ -1,23 +1,20 @@
-library(shiny)
+source("packages.R")
+source("functions.R")
 
-datasets <- function() {
-  list.files(
-    system.file("extdata", package = "testdataprep.private")
-  )
-}
+paths <- installed_files(regexp = supported_extensions())
 
 ui <- fluidPage(
-  selectInput("dataset", label = "Dataset", choices = ls("package:r2dii.data")),
-  tableOutput("table")
+  selectInput("dataset", label = format_label("Dataset"), choices = files(paths)),
+  verbatimTextOutput("table")
 )
 
 server <- function(input, output, session) {
   dataset <- reactive({
-    get(input$dataset, "package:r2dii.data")
+    find_dataset(input$dataset, paths)
   })
-  
-  output$table <- renderTable({
-    dataset() 
+
+  output$table <- renderPrint({
+    dataset()
   })
 }
 
