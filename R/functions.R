@@ -12,7 +12,7 @@
 # installed_files(regexp = "dataset")
 # installed_files("vroom", "dataset")
 installed_files <- function(packages = NULL, regexp = NULL, ...) {
-  all <- rownames(installed.packages())
+  all <- rownames(utils::installed.packages())
   packages <- packages %||% all
 
   files <- lapply(packages, installed_file, regexp = regexp, ...)
@@ -50,7 +50,7 @@ read_data <- function(path) {
       "csv" = readr::read_csv(path),
       "tsv" = readr::read_tsv(path),
       "rds" = readr::read_rds(path),
-      stop("Can't read files with extension: ", ext, call. = FALSE)
+      stop("Can't read files with extension: ", extension, call. = FALSE)
   )
 
   data
@@ -80,8 +80,8 @@ find_package <- function(x) {
 find_dataset <- function(input, paths) {
   path <- find_path(input, paths)
   out <- read_data(path)
-  out <- list(head(out))
-  out <- setNames(out, find_package(path))
+  out <- list(utils::head(out))
+  out <- stats::setNames(out, find_package(path))
   out
 }
 
@@ -92,4 +92,12 @@ files <- function(paths) {
 format_label <- function(x) {
   ext <- paste(extensions(), collapse = ", ")
   paste0(x, " (", ext, ")")
+}
+
+`%||%` <- function (x, y) {
+    if (is.null(x)) {
+      y
+    } else {
+      x
+    }
 }

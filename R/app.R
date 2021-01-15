@@ -1,5 +1,4 @@
-source("packages.R")
-source("functions.R")
+extdatapp <- function() {
 
 paths <- installed_files(regexp = supported_extensions())
 
@@ -19,4 +18,4 @@ server <- function(input, output, session) {
 }
 
 shiny::shinyApp(ui, server)
-
+}
