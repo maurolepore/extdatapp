@@ -1,6 +1,7 @@
-source("packages.R")
-source("functions.R")
+#' @import shiny
+NULL
 
+extdatapp <- function() {
 paths <- installed_files(regexp = supported_extensions())
 
 ui <- fluidPage(
@@ -19,3 +20,5 @@ server <- function(input, output, session) {
 }
 
 shiny::shinyApp(ui, server)
+
+}
