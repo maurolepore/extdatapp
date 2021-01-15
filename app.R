@@ -1,5 +1,5 @@
-source("functions.R")
 source("packages.R")
+source("functions.R")
 
 paths <- installed_files(regexp = supported_extensions())
 
